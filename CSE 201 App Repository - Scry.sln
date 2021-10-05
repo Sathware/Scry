@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "CSE 201 App Repository - Scry", "CSE 201 App Repository - Scry.phpproj", "{A55A6387-D5B2-4293-9052-4522A26DCDE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A55A6387-D5B2-4293-9052-4522A26DCDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55A6387-D5B2-4293-9052-4522A26DCDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55A6387-D5B2-4293-9052-4522A26DCDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55A6387-D5B2-4293-9052-4522A26DCDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7443A5ED-2386-4EDA-8656-998868FB121F}
+	EndGlobalSection
+EndGlobal
