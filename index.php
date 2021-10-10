@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <h1>This is Scry</h1>
+    <h1 style="background:#FFFDD0; padding:20px;">Scry</h1>
 </body>
 
 <?php
