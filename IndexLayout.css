@@ -1,0 +1,44 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
+
+body {
+    margin: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    overflow: hidden;
+    margin: auto;
+    background-color: #2f353c;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 6vh;
+}
+
+nav li {
+    color: #0099ff;
+    margin-left: 0;
+    margin-right: 2vw;
+}
+
+section
+{
+    display:flex;
+    flex-direction:row;
+}
+
+/*section h2
+{
+    display:block;
+}*/
+
+.applisting
+{
+    margin:1vh 1vw;
+    width: 5vw;
+    height: 5vh;
+    border-radius: 5px;
+    background-color:bisque;
+    visibility:inherit;
+}
