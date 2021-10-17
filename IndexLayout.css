@@ -1,7 +1,8 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
 
 body {
-    margin: auto;
+    margin: 0;
+    height: 100%;
 }
 
 nav ul {
@@ -22,7 +23,7 @@ nav li {
     margin-right: 2vw;
 }
 
-section
+.appCluster
 {
     display:flex;
     flex-direction:row;
@@ -41,4 +42,35 @@ section
     border-radius: 5px;
     background-color:bisque;
     visibility:inherit;
+}
+
+.applisting:hover
+{
+    cursor:pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#overlay
+{
+    z-index: 1000;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#appdata
+{
+    display: inherit;
+    z-index: 1001;
+    position:absolute;
+    top: 6vh;
+    left: 25vw;
+    right: 25vw;
+    bottom: 0;
+    background-color: azure;
+    border-radius: 5px;
 }
