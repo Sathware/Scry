@@ -44,6 +44,16 @@ nav li {
     visibility:inherit;
 }
 
+.applisting img {
+    width: 15vw;
+    height: 15vh;
+    overflow: hidden;
+    display: inline;
+    position: center;
+    padding: 0;
+    margin: 0px 0px 0px 0px;
+}
+
 .applisting:hover
 {
     cursor:pointer;
