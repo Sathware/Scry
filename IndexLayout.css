@@ -1,7 +1,8 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
 
 body {
-    margin: auto;
+    margin: 0;
+    height: 100%;
 }
 
 nav ul {
@@ -22,20 +23,25 @@ nav li {
     margin-right: 2vw;
 }
 
-section {
-    display: flex;
-    flex-direction: row;
+.appCluster
+{
+    display:flex;
+    flex-direction:row;
 }
 
-.applisting {
-    margin: 1vh 1vw;
-    width: 30vw;
-    height: 35vh;
+/*section h2
+{
+    display:block;
+}*/
+
+.applisting
+{
+    margin:1vh 1vw;
+    width: 5vw;
+    height: 5vh;
     border-radius: 5px;
-    background-color: #FFFDD0;
-    visibility: inherit;
-    border: solid 2px black;
-    text-align: center;
+    background-color:bisque;
+    visibility:inherit;
 }
 
 .applisting img {
@@ -48,26 +54,29 @@ section {
     margin: 0px 0px 0px 0px;
 }
 
-    .applisting:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    }
+.applisting:hover
+{
+    cursor:pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
-#overlay {
+#overlay
+{
     z-index: 1000;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
 }
 
-#appdata {
+#appdata
+{
     display: inherit;
     z-index: 1001;
-    position: absolute;
+    position:absolute;
     top: 6vh;
     left: 25vw;
     right: 25vw;
@@ -75,4 +84,3 @@ section {
     background-color: azure;
     border-radius: 5px;
 }
-
