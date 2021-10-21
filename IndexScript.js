@@ -64,3 +64,21 @@ function showData(appListing)//In Progress
     AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;
     document.getElementById("overlay").style.display = "block";
 }
+
+function dummyDismiss(e)
+{
+    let x = e.currentTarget.id;
+    if (x.valueOf() == "appdata")
+    {
+        e.stopPropagation();
+    }
+}
+
+function dismiss(e)
+{
+    let x = e.currentTarget.id;
+    if (x.valueOf() == "overlay")
+    {
+        e.currentTarget.style.display = "none";
+    }
+}
