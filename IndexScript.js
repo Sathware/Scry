@@ -61,7 +61,7 @@ function filterSearch()
 function showData(appListing)//In Progress
 {
     let AppData = document.getElementById("appdata");
-    AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;
+    AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h5")[0].innerHTML;
     document.getElementById("overlay").style.display = "block";
 }
 
