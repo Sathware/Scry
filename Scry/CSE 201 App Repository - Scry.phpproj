@@ -1,0 +1,6 @@
+<Project Sdk="Devsense.Php.Sdk">
+  <PropertyGroup>
+    <EnvName>PHPDev</EnvName>
+    <RuntimeVersion>8.0</RuntimeVersion>
+  </PropertyGroup>
+</Project>

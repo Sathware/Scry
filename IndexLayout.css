@@ -34,14 +34,15 @@ nav li {
     display:block;
 }*/
 
-.applisting
+.applisting 
 {
-    margin:1vh 1vw;
-    width: 5vw;
-    height: 5vh;
+    margin: 1vh 1vw;
+    width: 25vw;
+    height: 35vh;
     border-radius: 5px;
-    background-color:bisque;
-    visibility:inherit;
+    background-color: bisque;
+    visibility: inherit;
+    border: solid 2px black;
 }
 
 .applisting img {

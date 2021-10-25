@@ -39,32 +39,20 @@
         </ul>
     </nav>
 
-    <!-- <section class="appCluster" id="B">
+    <section class="appCluster" id="B">
         <h2>B</h2>
-        <article class="applisting" title="Bank" onclick="showData(this);">
-            <h3>Bank</h3>
+        <article class="applisting" title="Bank" price="5" category="finance" onclick="showData(this);">
+            <h5 id="headertag0">Bank 5$ Finance</h5>
         </article>
-        <article class="applisting" title="Bon" onclick="showData(this);">
-            <h3>Bon</h3>
+    </section>
+    <section class="appCluster" id="F">
+        <h2>F</h2>
+        <article class="applisting" title="Facebook" price="0" category="texting" onclick="showData(this);">
+            <h5 id="headertag1">Facebook 0$ Texting</h5>
         </article>
     </section>
     <section class="appCluster" id="S">
         <h2>S</h2>
-        <article class="applisting" title="Spotify" onclick="showData(this);">
-            <h3>Spotify</h3>
-        </article>
-        <article class="applisting" title="Skate 3" onclick="showData(this);">
-            <h3>Skate 3</h3>
-        </article>
-    </section> -->
-
-    <section id="app">
-        <article class="applisting" title="Bank" price="5" category="finance" onclick="showData(this);">
-            <h5 id="headertag0">Bank 5$ Finance</h5>
-        </article>
-        <article class="applisting" title="Facebook" price="0" category="texting" onclick="showData(this);">
-            <h5 id="headertag1">Facebook 0$ Texting</h5>
-        </article>
         <article class="applisting" title="Spotify" price="10" category="music" onclick="showData(this);">
             <h5 id="headertag2">Spotify 10$ Music</h5>
         </article>
