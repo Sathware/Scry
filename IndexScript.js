@@ -61,6 +61,24 @@ function filterSearch()
 function showData(appListing)//In Progress
 {
     let AppData = document.getElementById("appdata");
-    AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;
+    AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h5")[0].innerHTML;
     document.getElementById("overlay").style.display = "block";
+}
+
+function dummyDismiss(e)
+{
+    let x = e.currentTarget.id;
+    if (x.valueOf() == "appdata")
+    {
+        e.stopPropagation();
+    }
+}
+
+function dismiss(e)
+{
+    let x = e.currentTarget.id;
+    if (x.valueOf() == "overlay")
+    {
+        e.currentTarget.style.display = "none";
+    }
 }
