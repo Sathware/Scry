@@ -1,8 +1,7 @@
-﻿@import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Cinzel&display=swap");
 
 body {
-    margin: 0;
-    height: 100%;
+    margin: auto;
 }
 
 nav ul {
@@ -23,25 +22,20 @@ nav li {
     margin-right: 2vw;
 }
 
-.appCluster
-{
-    display:flex;
-    flex-direction:row;
+section {
+    display: flex;
+    flex-direction: row;
 }
 
-/*section h2
-{
-    display:block;
-}*/
-
-.applisting
-{
-    margin:1vh 1vw;
-    width: 5vw;
-    height: 5vh;
+.applisting {
+    margin: 1vh 1vw;
+    width: 30vw;
+    height: 35vh;
     border-radius: 5px;
-    background-color:bisque;
-    visibility:inherit;
+    background-color: #FFFDD0;
+    visibility: inherit;
+    border: solid 2px black;
+    text-align: center;
 }
 
 .applisting img {
@@ -50,37 +44,34 @@ nav li {
     overflow: hidden;
     display: inline;
     position: center;
-    padding: 0;
-    margin: 0px 0px 0px 0px;
 }
 
-.applisting:hover
-{
-    cursor:pointer;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
+    .applisting:hover {
+        cursor: pointer;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
 
-#overlay
-{
+#overlay {
     z-index: 1000;
-    position:absolute;
-    top:0px;
-    right:0px;
-    bottom:0px;
-    left:0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
 }
 
-#appdata
-{
+#appdata {
     display: inherit;
     z-index: 1001;
-    position:absolute;
+    position: absolute;
     top: 6vh;
     left: 25vw;
     right: 25vw;
     bottom: 0;
     background-color: azure;
     border-radius: 5px;
+    overflow: hidden;
 }
+
