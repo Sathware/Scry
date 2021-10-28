@@ -5,11 +5,20 @@ body {
     height: 100%;
 }
 
+nav
+{
+    position: sticky;
+    top: 0;
+    border-bottom-left-radius: 15% 20%;
+    border-bottom-right-radius: 15% 20%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #2f353c;
+}
+
 nav ul {
     list-style-type: none;
     overflow: hidden;
     margin: auto;
-    background-color: #2f353c;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -23,17 +32,21 @@ nav li {
     margin-right: 2vw;
 }
 
-.appCluster
-{
-    display:flex;
-    flex-direction:row;
-}
-
 /*section h2
 {
     display:block;
 }*/
 
+.apps
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
 .applisting 
 {
     margin: 1vh 1vw;
@@ -64,24 +77,34 @@ nav li {
 #overlay
 {
     z-index: 1000;
-    position:absolute;
+    position:fixed;
     top:0px;
     right:0px;
     bottom:0px;
     left:0px;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
+    overflow:hidden;
 }
 
 #appdata
 {
     display: inherit;
     z-index: 1001;
-    position:absolute;
-    top: 6vh;
+    position:fixed;
+    top: 0;
     left: 25vw;
     right: 25vw;
+    width: 50vw;
     bottom: 0;
     background-color: azure;
     border-radius: 5px;
+}
+
+.os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+    left: auto;
+    right: 0;
+    top: 6vh;
+    /* max-height: 25%;
+    min-height: 30px; */
 }
