@@ -72,6 +72,6 @@ section {
     bottom: 0;
     background-color: azure;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: scroll;
 }
 
