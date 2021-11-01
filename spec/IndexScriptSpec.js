@@ -26,3 +26,15 @@ describe("Filtering by name", function()
     });
     
 });
+
+describe("Only editing user's own comments", function()
+{
+    it("should allow user to only edit his comments, not other's", function()
+    {
+        login("Boris", "pwd");
+        // Assume b be the User object for "Boris", and c be the User object for "Candy"
+        expect(editComment("Boris", b.comment)).toEqual(new Boolean(true));
+        expect(editComment("Boris", c.comment)).toEqual(new Boolean(false));
+    });
+    
+});
