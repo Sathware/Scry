@@ -29,14 +29,6 @@
     </nav>
     <section class="appCluster" id="B">
         <h2>B</h2>
-        <article class="applisting" title="U.S. Bank" onclick="showData(this);">
-            <h3>U.S. Bank</h3>
-            <img src="usbank.jpg" alt="U.S. Bank"/>
-        </article>
-        <article class="applisting" title="Fifth Third Bank" onclick="showData(this);">
-            <h3>Fifth Third Bank</h3>
-            <img src="fifththirdbank.png" alt="Fifth Third Bank"/>
-        </article>
         <article class="applisting" title="Soundcloud" onclick="showData(this);">
             <h3>Soundcloud</h3>
             <img src="soundcloud.jpg" alt="Soundcloud"/>
@@ -67,9 +59,9 @@
             <h3>Nike</h3>
             <img src="nike.png" alt="Amazon"/>
         </article>
-        <article class="applisting" title="Doordash" onclick="showData(this);">
-            <h3>Doordash</h3>
-            <img src="doordash.png" alt="Doordash"/>
+        <article class="applisting" title="DoorDash" onclick="showData(this);">
+            <h3>DoorDash</h3>
+            <img src="doordash.png" alt="DoorDash"/>
         </article>
     </section>
     <section class="appCluster" id="S">
