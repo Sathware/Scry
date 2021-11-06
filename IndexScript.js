@@ -1,42 +1,5 @@
-function userLogin()
-{
-    let loginForm = document.forms["userCredentials"];
-    let uName = loginForm["username"].value;
-    let pWord = loginForm["password"].value;
-    if (uName == uName && pWord == "pwd")
-    {
-        let UserDisplay = document.getElementById("userDisplay");
-        UserDisplay.innerHTML = uName;
-        UserDisplay.style.visibility = "visible";
-        loginForm.style.visibility = "hidden";
-    }
-    else
-    {
-        alert("Invalid Credentials");
-    }
-}
-
-function hideUnusedSections()
-{
-    let appclusters = document.getElementsByClassName("appCluster");
-    for (i = 0; i < appclusters.length; i++)
-    {
-        let applistings = appclusters[i].getElementsByClassName("applisting");
-        let noneShown = true;
-        for (k = 0; k < applistings.length; k++)
-        {
-            if (applistings[i].style.display != "none")
-                noneShown = false;
-        }
-
-        if (noneShown == true)
-            appclusters[i].style.display = "none";
-    }
-}
-
 function sortBy() {
     let choice = options.value;
-    document.getElementById("defaultOption").style.display = "none";
     let AppListings = document.getElementsByClassName("applisting");
     let arrayToSort = new Array()
     for (var i=0;i<AppListings.length;i++) {
@@ -97,19 +60,43 @@ function search()
     // section.style.display = 'none';
 }
 
+function showSignIn()
+{
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("signin").style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function validateCredentials()
+{
+    let userInfo = document.forms["user_verification"];
+    let invalidChars = /^[0-9a-zA-Z]+$/;
+    if (invalidChars.test(userInfo["uname"].value) && invalidChars.test(userInfo["pass"].value))
+    {
+        return true;
+    }
+    else
+    {
+        alert("Please enter a valid username and password.");
+        return false;
+    }
+}
+
 function showData(appListing)//In Progress
 {
     let AppData = document.getElementById("appdata");
     AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;
     AppData.getElementsByTagName("img")[0].setAttribute("src", appListing.getElementsByTagName("img")[0].getAttribute("src"));
     document.getElementById("overlay").style.display = "block";
+    AppData.style.display = "block";
+    AppData.getElementsByTagName("p")[0].innerHTML = appListing.getAttribute("description");
     document.body.style.overflow = "hidden";
 }
 
 function dummyDismiss(e)
 {
     let x = e.currentTarget.id;
-    if (x.valueOf() == "appdata")
+    if (x.valueOf() == "appdata" || x.valueOf() == "signin")
     {
         e.stopPropagation();
     }
@@ -120,7 +107,9 @@ function dismiss(e)
     let x = e.currentTarget.id;
     if (x.valueOf() == "overlay")
     {
-        e.currentTarget.style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("signin").style.display = "none";
+        document.getElementById("appdata").style.display = "none";
         document.body.style.overflow = "auto";
     }
 }
