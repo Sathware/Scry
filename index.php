@@ -4,7 +4,7 @@
 
 <?php
     $errors = "";
-
+    $loggedIn = false; //Keeps track of whether a user is logged in or not
     //Establish Connection
     $conn = new mysqli("localhost:3306", "php", "testpassword", "scry");
     //Check Connection and stop if invalid
@@ -14,7 +14,7 @@
     }
 
     include_once("user.php");
-    include_once("app.php");
+    //require __DIR__.("\category.php");
 ?>
 
 <head>
@@ -47,11 +47,11 @@
             <?php
                 if ($_POST["sign_in"] && $_POST["uname"] && $_POST["pass"])
                 {
-                    login($conn, $errors, $_POST["uname"], $_POST["pass"]);
+                    $loggedIn = login($conn, $errors, $_POST["uname"], $_POST["pass"]);
                 }
                 else if ($_POST["sign_up"] && $_POST["uname"] && $_POST["pass"])
                 {
-                    signup($conn, $errors, $_POST["uname"], $_POST["pass"]);
+                    $loggedIn = signup($conn, $errors, $_POST["uname"], $_POST["pass"]);
                 }
             ?>
             </li>
@@ -65,13 +65,11 @@
             $result = $conn->query($query);
 
             //Display all app listings
-            while ($app = $result->fetch_assoc()) //NEED TO IMPLEMENT CATEGORIES
+            while ($app = $result->fetch_assoc()) //NEED TO IMPLEMENT CATEGORIES and price
             {
-                $safeName = str_replace("'", "&apos;", $app["name"]);//For instance McDonald's the ' will produce incorrect results, so this code fixes that
-                $safeDescription = str_replace("'", "&apos;", $app["description"]);
-                echo "<article class='applisting' title='".$safeName."' onclick='showData(this);' description='".$safeDescription."'>";
-                echo "<h3>".$safeName."</h3>";
-                echo "<img src='".$app["image"]."' alt='".$safeName."'/>";
+                echo "<article class='applisting' title='".$app["name"]."' onclick='showData(this);' description='".$app["description"]."'>";
+                echo "<h3>".$app["name"]."</h3>";
+                echo "<img src='".$app["image"]."' alt='".$app["name"]."'/>";
                 echo "</article>";
             }
 
@@ -85,13 +83,22 @@
     <section id="filterSelection">
         <form>
             <label>Category</label>
-            <input type="text" style="box-sizing:border-box; width:100%;" onfocus="document.getElementById('categories').style.display = 'block'" 
-            onblur="document.getElementById('categories').style.display = 'none'">
-            <div id="categories">
-            <ul style="height:inherit;">
-                <li>food</li>
-                <li>apparel</li>
-                <li>shopping</li>
+            <input type="text" style="box-sizing:border-box; width:100%;" onfocus="document.getElementById('categoryContainer').style.display = 'block';" 
+            onblur="document.getElementById('categoryContainer').style.display = 'none'">
+            <div id="categoryContainer">
+            <ul id="categories" style="height:inherit;">
+                <?php
+                    //Query database for all categories
+                    $query = "SELECT * FROM category;";
+                    $result = $conn->query($query);
+
+                    while ($category = $result->fetch_assoc())
+                    {
+                        echo "<li>";
+                        echo $category["name"];
+                        echo "</li>";
+                    }
+                ?>
             </ul>
             </div>
         </form>
@@ -103,6 +110,14 @@
             <h1 style="text-align: center;"></h1>
             <img src="" style="width: 50vw; height: 50vh;">
             <p></p>
+            <?php
+                if ($loggedIn)
+                {
+                    echo "<textarea id='commentfield' rows='4' cols='50'></textarea>";
+                    echo "<button type='button' onclick='makeComment(this.parentElement);'>Make Comment</button>";
+                }
+            ?>
+            <table id="comments"></table>
         </div>
         <div id="signin" onclick="dummyDismiss(event);" style="<?php displayIfError($errors);//If there are errors then keep sign in modal displayed ?>">
             <h2>Sign In</h2>

@@ -2,26 +2,13 @@
 
 <head>
     <script>
-        function validateCredentials() {
-            let userInfo = document.forms["user_verification"];
-            let invalidChars = /^[0-9a-zA-Z]+$/;
-            if (invalidChars.test(userInfo["uname"].value) && invalidChars.test(userInfo["pass"].value)) {
-                return true;
-            }
-            else {
-                alert("Please enter a valid username and password.");
-                return false;
-            }
+        function textArea() {
+            let x = document.getElementById("commentfield").value;
+            alert(x);
         }
     </script>
     <title>test</title>
 </head>
 
-<h2>Sign In</h2>
-<form name="user_verification">
-    <label for="uname">User Name:</label><br>
-    <input type="text" id="uname" name="uname" value=""><br>
-    <label for="pass">Password </label><br>
-    <input type="password" id="pass" name="pass" value=""><br><br>
-    <input type="submit" id="sign_in" value="Sign In" name="sign_in">
-</form>
+<textarea id='commentfield' rows='4' cols='50'></textarea>
+<button type='button' onclick='textArea();'>Make Comment</button>

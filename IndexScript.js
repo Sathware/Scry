@@ -5,7 +5,7 @@ function sortBy() {
     for (var i=0;i<AppListings.length;i++) {
         let name = AppListings[i].getAttribute("title");
         let type = AppListings[i].className;
-        let content = AppListings[i].innerHTML;
+        let content = AppListings[i].innerText;
         //let category = AppListings[i].getAttribute("category");
         arrayToSort[i] = [name, type, content];//, prices, category, headers.innerText];
     }
@@ -33,7 +33,7 @@ function setAppListings(sorted, applistings)
     for (var i=0;i<sorted.length;i++) {       
         applistings[i].setAttribute("title", sorted[i][0]);
         applistings[i].setAttribute("class", sorted[i][1]);
-        applistings[i].innerHTML = sorted[i][2];
+        applistings[i].innerText = sorted[i][2];
     }
 }
 
@@ -85,12 +85,56 @@ function validateCredentials()
 function showData(appListing)//In Progress, need to figure out price and categories
 {
     let AppData = document.getElementById("appdata");
-    AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;
+    appName = appListing.getElementsByTagName("h3")[0].innerText;
+    AppData.getElementsByTagName("h1")[0].innerText = appName;
     AppData.getElementsByTagName("img")[0].setAttribute("src", appListing.getElementsByTagName("img")[0].getAttribute("src"));
     document.getElementById("overlay").style.display = "block";
     AppData.style.display = "block";
-    AppData.getElementsByTagName("p")[0].innerHTML = appListing.getAttribute("description");
+    AppData.getElementsByTagName("p")[0].innerText = appListing.getAttribute("description");
     document.body.style.overflow = "hidden";
+    showComments(appName);
+}
+
+//!!!!!!! CHANGE URL
+function showComments(appName)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("comments").innerHTML = this.responseText;
+      }
+    };
+    let params = "appname="+appName+"&action=show";
+    xmlhttp.open("POST", "comment.php", true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xmlhttp.send(params);
+}
+
+function makeComment(modal)
+{
+    let comment = document.getElementById("commentfield");
+    let appName = modal.getElementsByTagName("h1")[0].innerText;
+    let userName = document.getElementById("userDisplay").innerText;
+    if (comment != null)
+    {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText == "error")
+                {
+                    alert("Your comment could not be made. Try Again Later.");
+                }
+                else
+                {
+                    document.getElementById("comments").innerHTML += "<tr><td>"+userName+": </td><td> "+comment.value+"</td></tr>";
+                }
+            }
+        };
+        let params = "appname=" + appName + "&action=make&comment="+comment.value+"&username="+userName;
+        xmlhttp.open("POST", "comment.php", true);
+        xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xmlhttp.send(params);
+    }
 }
 
 function dummyDismiss(e)

@@ -150,7 +150,16 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     text-align:center;
 }
 
-#filterSelection ul
+#categoryContainer
+{
+    max-height: 10vh;
+    overflow: auto;
+    position: relative; 
+    z-index: 900; 
+    display: none;
+}
+
+#categories
 {
     list-style-type: none;
     font-size: 16px;
@@ -159,15 +168,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     padding: 0;
     width: auto;
     text-align:left;
-}
-
-#categories
-{
-    max-height: 10vh;
-    overflow: auto;
-    position: relative; 
-    z-index: 900; 
-    display: none;
 }
 
 #overlay
@@ -195,6 +195,11 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     bottom: 0;
     background-color: azure;
     border-radius: 5px;
+}
+
+#comments th, #comments td
+{
+    border-style: dotted;
 }
 
 #signin

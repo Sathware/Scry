@@ -16,14 +16,20 @@
             else
             {
                 $flagErrors .= "Invalid Password"; //invalid password
+                $query->close();
+                return false;
             }
         }
         else
         {
             $flagErrors .= "Invalid Username"; //invalid user name
+            $query->close();
+            return false;
         }
 
         $query->close();//Deallocates handle so following queries can be executed
+        //echo "<span id='inputtedPass' style='display:none;'>".$userInputtedPass."</span>";
+        return true;
     }
 
     function signup(&$database, &$flagErrors, &$userInputtedName, &$userInputtedPass)
@@ -40,9 +46,12 @@
         else
         {
             $flagErrors .= "Username already exists";
+            $query->close();
+            return false;
         }
 
         $query->close();
+        return true;
     }
 
     //If there are any errors, then css should display
