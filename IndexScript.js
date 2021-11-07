@@ -82,7 +82,7 @@ function validateCredentials()
     }
 }
 
-function showData(appListing)//In Progress
+function showData(appListing)//In Progress, need to figure out price and categories
 {
     let AppData = document.getElementById("appdata");
     AppData.getElementsByTagName("h1")[0].innerHTML = appListing.getElementsByTagName("h3")[0].innerHTML;

@@ -146,8 +146,28 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     color: #0099ff;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     text-align:center;
+}
+
+#filterSelection ul
+{
+    list-style-type: none;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-left: 10px;
+    padding: 0;
+    width: auto;
+    text-align:left;
+}
+
+#categories
+{
+    max-height: 10vh;
+    overflow: auto;
+    position: relative; 
+    z-index: 900; 
+    display: none;
 }
 
 #overlay
