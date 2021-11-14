@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+    <title>test</title>
+</head>
+
+<style>
+    #outer {
+   margin: 5em;
+   border: 1px solid #f00;
+   height: 8em; position: relative;
+ }
+ 
+ #inner {
+   width: 5em; height: 5em;
+   background-color: #999;
+   position: absolute;
+   left: 1em;
+ }
+
+ #second {
+   width: 5em;
+   height: 5em;
+   background-color: #00f;
+   position: absolute;
+   top: 1em;
+   left: 2em;
+ }
+</style>
+
+<body>
+    <div id="outer">
+      <div id="inner"></div>
+      '''<div id="second"></div>'''
+    </div>
+  </body>
