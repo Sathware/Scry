@@ -38,6 +38,8 @@
     <script src="IndexScript.js"></script>
     <script src="nav.js"></script>
     <script src="apps.js"></script>
+    <script src="filter.js"></script>
+    <script src="apprequest.js"></script>
     <script src="https://kit.fontawesome.com/b9a27c43ce.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/js/OverlayScrollbars.min.js" integrity="sha512-B1xv1CqZlvaOobTbSiJWbRO2iM0iii3wQ/LWnXWJJxKfvIRRJa910sVmyZeOrvI854sLDsFCuFHh4urASj+qgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Scry - App Repository</title>
@@ -47,26 +49,30 @@
 
     <div style="position: relative; z-index: 0;">
         <section id="filterSelection">
-            <form>
+            <div>
                 <label id="categorybtn" onclick="toggleCategories();">Category <i class='fas fa-caret-down'> </i></label>
                 <div id="categoryContainer">
-                <input type="text" onkeyup="filterCategories(this.value);" style="box-sizing:border-box; width:100%; position:sticky; top: 0;">
-                <ul id="categories">
-                    <?php
-                        //Query database for all categories
-                        $query = "SELECT * FROM category;";
-                        $result = $conn->query($query);
+                    <input type="text" onkeyup="filterCategories(this.value);" style="box-sizing:border-box; width:100%; position:sticky; top: 0;">
+                    <ul id="categories">
+                        <?php
+                            //Query database for all categories
+                            $query = "SELECT * FROM category;";
+                            $result = $conn->query($query);
 
-                        while ($category = $result->fetch_assoc())
-                        {
-                            echo "<li onclick='toggleCheck(this);' class='categoryListing'>";
-                            echo $category["name"];
-                            echo "</li>";
-                        }
-                    ?>
-                </ul>
+                            while ($category = $result->fetch_assoc())
+                            {
+                                echo "<li onclick='toggleCheck(this);' class='categoryListing'>";
+                                echo $category["name"];
+                                echo "</li>";
+                            }
+                        ?>
+                    </ul>
                 </div>
-            </form>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <label>Price: $</label>
+                    <input id="priceSelector" onchange="filterByPrice();" type="number" min="0" max="50"value="0">
+                </div>
+            </div>
         </section>
     </div>
 
@@ -82,6 +88,14 @@
                 </select>
             </li>-->
             <li><input type="search" placeholder="&#x1F50E;&#xFE0E; Search Apps" id="searchbar" onfocus="this.placeholder = '';" onblur="this.placeholder='&#x1F50E;&#xFE0E; Search Apps';" onkeyup="search();"></li> <!--Styling: display:flex; flex-direction:row; align-items:center; column-gap:.4vw;-->
+            <li>
+                <select onchange="sort(this);" id="sortSelect" placeholder="Sort Order">
+                    <option>Alphabetical Descending</option>
+                    <option>Alphabetical Ascending</option>
+                    <option>Price</option>
+                </select>
+            </li>
+            <li><input id="apprequestbtn" class="scrybtn" type="button" onclick="showRequest();" value="Request App"></li>
             <li style="margin-left:auto;">
                 <?php
                     if (!$loggedIn)
@@ -126,12 +140,13 @@
                 $categories = "";
                 if ($categoryresult != false)
                 {
-                    while($temp = $categoryresult->fetch_assoc())
+                    while ($temp = $categoryresult->fetch_assoc())
                     {
                         $categories.=$temp["categoryname"]." ";
                     }
                 }
-                echo "<article class='applisting' title='".$app["name"]."' onclick='showData(this);' description='".$app["description"]."' categories='".$categories."'>";
+                echo "<article class='applisting' title='".$app["name"]."' onclick='showData(this);' price='".$app["price"]."' 
+                description='".$app["description"]."' categories='".$categories."'>";
                 echo "<h3>".$app["name"]."</h3>";
                 echo "<img src='".$app["image"]."' alt='".$app["name"]."'/>";
                 echo "</article>";
@@ -147,7 +162,10 @@
     <div id="overlay" onclick="dismiss(event);" class="<?php echo ($errors == "") ? "":"active";//If sign in error then keeps modal displayed ?>">
         <!--Holds The Modals that show app information and sign in/ sign up form -->
         <div id="appdata" onclick="dummyDismiss(event);">
-            <h1 id="appName" style="align-self: center;"></h1>
+            <div id="appheader">
+                <h1 id="appName"></h1>
+                <div id="platformview"></div>
+            </div>
             <div id="appinfo">
                 <img src="">
                 <div>
@@ -191,6 +209,66 @@
                     <input type="submit" value="Sign Up" name="sign_up" class="scrybtn">
                 </div>
             </form> 
+        </div>
+        <div id="apprequest" onclick="dummyDismiss(event);">
+            <div id="apprequestinput">
+                <label style="">App Name</label>
+                <div onkeyup="updateName(this.innerText);" class="requestdiv" contenteditable></div>
+
+                <label style="">Price</label>
+                <input onchange="updatePrice(this.value);" type="number" min="0" max="50"value="0">
+
+                <label style="">Description</label>
+                <div onkeyup="updateDesc(this.innerText);" class="requestdiv" contenteditable></div>
+
+                <label style="">App Image URL</label>
+                <div onkeyup="updateImg(this.innerText);" class="requestdiv" contenteditable></div>
+
+                <label style="">Developer</label>
+                <div onkeyup="updateDev(this.innerText);" class="requestdiv" contenteditable></div>
+
+                <div class="selectionContainer">
+                    <input type="text" onkeyup="filterCategories(this.value);" style="box-sizing:border-box; width:100%; position:sticky; top: 0;">
+                    <ul id="categories">
+                        <?php
+                            //Query database for all categories
+                            $query = "SELECT * FROM category;";
+                            $result = $conn->query($query);
+
+                            while ($category = $result->fetch_assoc())
+                            {
+                                echo "<li onclick='toggleCheck(this);' class='categoryListing'>";
+                                echo $category["name"];
+                                echo "</li>";
+                            }
+                        ?>
+                    </ul>
+                </div>
+
+                <label style="">Platforms</label>
+                <div onkeyup="" class="requestdiv" contenteditable></div>
+
+                <label style="">Versions</label>
+                <div onkeyup="" class="requestdiv" contenteditable></div>
+
+                <label style="">App URL</label>
+                <div onkeyup="" class="requestdiv" contenteditable></div>
+                <input type="button" class="scrybtn" value="Send Request" style="">
+            </div>
+
+            <div id="preview">
+                <div style="display: flex; flex-direction: row; justify-content: center; align-self: center;">
+                    <h1 id="previewheader">Test</h1>
+                    <div></div>
+                </div>
+                <div style="display:flex; flex-direction: row; justify-content: flex-start; align-self: flex-start;">
+                    <img id="previewimg" src="blank.png">
+                    <div style="display:flex; flex-direction: column; justify-content: center; align-items: flex-start;">
+                        <h3>Description: </h3>
+                        <p id="previewdesc">Test</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
