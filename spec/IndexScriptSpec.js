@@ -27,14 +27,18 @@ describe("Filtering by name", function()
     
 });
 
-describe("Only editing user's own comments", function()
-{
-    it("should allow user to only edit his comments, not other's", function()
+describe("Show comments", function()
+{   
+    var [xmlhttp, params] = showComments("DoorDash"); // Define it here
+
+    it("should use the xmlHttpRequest object for asynchronous queries", function()
     {
-        login("Boris", "pwd");
-        // Assume b be the User object for "Boris", and c be the User object for "Candy"
-        expect(editComment("Boris", b.comment)).toEqual(new Boolean(true));
-        expect(editComment("Boris", c.comment)).toEqual(new Boolean(false));
+        expect(xmlhttp).toBeTruthy();
+    });
+
+    it("should output the associated comments for a particular app", function()
+    {
+        expect(params.includes("DoorDash")).toEqual(new Boolean(true));
     });
     
 });
