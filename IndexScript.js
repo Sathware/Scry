@@ -16,7 +16,7 @@ function validateCredentials()
 function dummyDismiss(e)
 {
     let x = e.currentTarget.id;
-    if (x.valueOf() == "appdata" || x.valueOf() == "signin")
+    if (x.valueOf() == "appdata" || x.valueOf() == "signin" || x.valueOf() == "apprequest")
     {
         e.stopPropagation();
     }
@@ -30,6 +30,7 @@ function dismiss(e)
         document.getElementById("overlay").classList.remove("active");
         document.getElementById("signin").classList.remove("active");
         document.getElementById("appdata").classList.remove("active");
+        document.getElementById("apprequest").classList.remove("active");
         document.body.style.overflow = "auto";
     }
 }

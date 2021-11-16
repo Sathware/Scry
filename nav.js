@@ -21,9 +21,42 @@ function search()
     // section.style.display = 'none';
 }
 
+function sort(select)
+{
+    let Apps = document.getElementById("apps");
+    let applistings = Array.from(document.getElementsByClassName("applisting"));
+    let temp = applistings[0].getAttribute("price");
+    if (select.value == "Alphabetical Descending")
+    {
+        applistings.sort(function (a, b) {
+            return a.getAttribute("title").localeCompare(b.getAttribute("title"));
+        });
+    }
+    else if (select.value == "Alphabetical Ascending")
+    {
+        applistings.sort(function (a, b) {
+            return b.getAttribute("title").localeCompare(a.getAttribute("title"));//b and a are switched in localecompare
+        });
+    }
+    else if (select.value == "Price")
+    {
+        applistings.sort(function (a, b) {
+            return parseInt(a.getAttribute("price")) - parseInt(b.getAttribute("price"));
+        });
+    }
+    applistings.forEach(app => Apps.appendChild(app));
+}
+
 function showSignIn()
 {
     document.getElementById("overlay").classList.add("active");
     document.getElementById("signin").classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function showRequest()
+{
+    document.getElementById("overlay").classList.add("active");
+    document.getElementById("apprequest").classList.add("active");
     document.body.style.overflow = "hidden";
 }

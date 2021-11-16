@@ -1,14 +1,30 @@
 function showData(appListing)//In Progress, need to figure out price and categories
 {
     let AppData = document.getElementById("appdata");
-    appName = appListing.getElementsByTagName("h3")[0].innerText;
-    AppData.getElementsByTagName("h1")[0].innerText = appName;
+    let appName = appListing.getElementsByTagName("h3")[0].innerText;
+    let price = appListing.getAttribute("price");
+    AppData.getElementsByTagName("h1")[0].innerText = "$"+price+" "+appName + ":";
     AppData.getElementsByTagName("img")[0].setAttribute("src", appListing.getElementsByTagName("img")[0].getAttribute("src"));
     document.getElementById("overlay").classList.add("active");
     AppData.classList.add("active");
     AppData.getElementsByTagName("p")[0].innerText = appListing.getAttribute("description");
     document.body.style.overflow = "hidden";
+    showPlatforms(appName);
     showComments(appName);
+}
+
+function showPlatforms(appName)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("platformview").innerHTML = this.responseText;
+        }
+    };
+    let params = "appname="+appName;
+    xmlhttp.open("POST", "app_platform.php", true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xmlhttp.send(params);
 }
 
 //!!!!!!! CHANGE URL
@@ -161,78 +177,4 @@ function hasAllCategories(appcategories, selectedcategories)
         output = appcategories.includes(selectedcategories[i]);
     }
     return output;
-}
-
-function filterAppsByCategories()
-{
-    let applistings = document.getElementsByClassName("applisting");
-    let selectedCategories = getSelectedCategories();
-    for (let i = 0; i < applistings.length; i++)
-    {
-        let appcategories = applistings[i].getAttribute("categories").split(" ");
-        if (hasAllCategories(appcategories, selectedCategories))//infinite loop
-        {
-            applistings[i].style.display = "block";
-        }
-        else
-        {
-            applistings[i].style.display = "none";
-        }
-    }
-}
-
-function toggleCategories()
-{
-    let list = document.getElementById("categoryContainer");
-    if (list.classList.contains("active"))
-    {
-        list.classList.remove("active");
-    }
-    else
-    {
-        list.classList.add("active");
-    }
-}
-
-function toggleCheck(category)
-{
-    if (category.classList.contains("active"))
-    {
-        category.classList.remove("active");
-    }
-    else
-    {
-        category.classList.add("active");
-    }
-    filterAppsByCategories();
-}
-
-function getSelectedCategories()
-{
-    let categorylistings = document.getElementsByClassName("categoryListing");
-    let selectedCategories = new Array();
-    for (let i = 0; i < categorylistings.length; i++)
-    {
-        if (categorylistings[i].classList.contains("active"))
-        {
-            selectedCategories.push(categorylistings[i].innerText.trim());
-        }
-    }
-    return selectedCategories;
-}
-
-function filterCategories(filter)
-{
-    let categorylistings = document.getElementsByClassName("categoryListing");
-    for (let i = 0; i < categorylistings.length; i++)
-    {
-        if (categorylistings[i].innerText.substring(0, filter.length).includes(filter))
-        {
-            categorylistings[i].style.display = "block";
-        }
-        else
-        {
-            categorylistings[i].style.display = "none";
-        }
-    }
 }

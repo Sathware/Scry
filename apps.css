@@ -149,6 +149,71 @@
     transition: .3s;
 }
 
+
+#appheader
+{
+    align-self:center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    width: 75%;
+}
+
+#platformview
+{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin: 5px;
+}
+
+.platforminstance
+{
+    display: flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    position: relative;
+    margin: 5px;
+}
+
+.platformversions
+{
+    position:absolute;
+    top: 100%;
+    color:#0099ff;
+    background-color:#2f353c;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    filter: blur(10px);
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: .3s;
+}
+
+.platformversions a
+{
+    color:#0099ff;
+    margin-bottom: 3px;
+}
+
+.platforminstance:hover .platformversions
+{
+    filter: blur(0px);
+    visibility: visible;
+    opacity: 1;
+    transition-duration: .3s;
+}
+
+/* #platformview a
+{
+    color:#0099ff;
+    margin: 4px;
+    margin-right: 1vw;
+    padding: 4px;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 #131518, inset 0 0 0 #4b5560, 2px 2px 10px #131518, -2px -2px 10px #4b5560;
+} */
+
 #appinfo
 {
     align-self: flex-start;

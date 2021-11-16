@@ -9,7 +9,7 @@
 
     if ($_POST["action"] == "show" && $_POST["appname"])
     {
-        showComments($conn, $_POST["appname"], $_POST["username"]);
+        showComments($conn, $_POST["appname"], $_POST["username"], hasPriveleges($conn, $_POST["username"]));
     }
     else if ($_POST["action"] == "make" && $_POST["appname"] && $_POST["comment"] && $_POST["username"])
     {
@@ -17,25 +17,41 @@
     }
     else if ($_POST["action"] == "edit" && $_POST["appname"] && $_POST["comment"] && $_POST["username"] && $_POST["commentid"])
     {
-        editComment($conn, $_POST["username"], $_POST["appname"], $_POST["comment"], $_POST["commentid"]);
+        editComment($conn, $_POST["username"], $_POST["appname"], $_POST["comment"], $_POST["commentid"], hasPriveleges($conn, $_POST["username"]));
     }
     else if ($_POST["action"] == "delete" && $_POST["appname"] && $_POST["username"] && $_POST["commentid"])
     {
-        deleteComment($conn, $_POST["username"], $_POST["appname"], $_POST["commentid"]);
+        deleteComment($conn, $_POST["username"], $_POST["appname"], $_POST["commentid"], hasPriveleges($conn, $_POST["username"]));
+    }
+
+    function hasPriveleges(&$database, &$user)
+    {
+        $query = $database->prepare("SELECT user.type FROM user WHERE user.name = ?;");
+        $query->bind_param("s", $user);
+        $query->execute();
+        $query->bind_result($type);
+
+        if ($query->fetch())
+        {
+            $query->close();
+            return ($type == "mod" || $type == "admin");
+        }
+
+        return false;
     }
 
     /**
     * This is a test php doc
     * Just work damn you
     */
-    function showComments(&$database, &$selectedApp, &$username)
+    function showComments(&$database, &$selectedApp, &$username, $hasPrivelege)
     {
         $query = $database->prepare("SELECT id, username, content FROM comment WHERE appname = ?;");
-        if ($query == false)
-        {
-            echo "error";
-            return false;
-        }
+        // if ($query == false)
+        // {
+        //     echo "error";
+        //     return false;
+        // }
         $query->bind_param("s", $selectedApp);
         $query->execute();
         $query->bind_result($id, $user, $text);
@@ -43,7 +59,7 @@
         while ($query->fetch())
         {
             $contenteditable = "";
-            if ($user == $username)
+            if ($user == $username || $hasPrivelege)
             {
                 $contenteditable = "contenteditable";
             }
@@ -67,11 +83,11 @@
         $comment = str_replace("'", "&apos;", $comment);
         $comment = str_replace("\"", "&quot;", $comment);
         $query = $database->prepare("INSERT INTO comment VALUES (null, ?, ?, ?);");
-        if ($query == false)
-        {
-            echo "error";
-            return false;
-        }
+        // if ($query == false)
+        // {
+        //     echo "error";
+        //     return false;
+        // }
         $query->bind_param("sss", $user, $selectedApp, $comment);
         $query->execute();
 
@@ -90,7 +106,17 @@
         }
     }
 
-    function editComment(&$database, &$user, &$selectedApp, &$comment, &$commentID)
+    function normalEditQuery(&$database)
+    {
+        return $database->prepare("UPDATE comment SET content = ? WHERE id = ? and username = ? and appname = ?;");
+    }
+
+    function privelegedEditQuery(&$database)
+    {
+        return $database->prepare("UPDATE comment SET content = ? WHERE id = ? and appname = ?;");
+    }
+
+    function editComment(&$database, &$user, &$selectedApp, &$comment, &$commentID, $hasPrivelege)
     {
         if (!isset($_COOKIE["user"]) || !password_verify($user, $_COOKIE["user"]))
         {
@@ -107,13 +133,20 @@
         $comment = str_replace("'", "&apos;", $comment);
         $comment = str_replace("\"", "&quot;", $comment);
         $ID = (int)$commentID;
-        $query = $database->prepare("UPDATE comment SET content = ? WHERE id = ? and username = ? and appname = ?;");
-        if ($query == false)
+        $query = $hasPrivelege ? privelegedEditQuery($database) : normalEditQuery($database);
+        // if ($query == false)
+        // {
+        //     echo "error";
+        //     return false;
+        // }
+        if ($hasPrivelege)
         {
-            echo "error";
-            return false;
+            $query->bind_param("sis", $comment, $ID, $selectedApp);
         }
-        $query->bind_param("siss", $comment, $ID, $user, $selectedApp);
+        else
+        {
+            $query->bind_param("siss", $comment, $ID, $user, $selectedApp);
+        }
         $query->execute();
 
         if ($query->error == "")
@@ -129,7 +162,17 @@
         }
     }
 
-    function deleteComment(&$database, &$user, &$selectedApp, &$commentID)
+    function normalDeleteQuery(&$database)
+    {
+        return $database->prepare("DELETE FROM comment WHERE id = ? and username = ? and appname = ?;");
+    }
+
+    function privelegedDeleteQuery(&$database)
+    {
+        return $database->prepare("DELETE FROM comment WHERE id = ? and appname = ?;");
+    }
+
+    function deleteComment(&$database, &$user, &$selectedApp, &$commentID, $hasPrivelege)
     {
         if (!isset($_COOKIE["user"]) || !password_verify($user, $_COOKIE["user"]))
         {
@@ -144,13 +187,20 @@
         }
 
         $ID = (int)$commentID;
-        $query = $database->prepare("DELETE FROM comment WHERE id = ? and username = ? and appname = ?;");
-        if ($query == false)
+        $query = $hasPrivelege ? privelegedDeleteQuery($database) : normalDeleteQuery($database);
+        // if ($query == false)
+        // {
+        //     echo "error";
+        //     return false;
+        // }
+        if ($hasPrivelege)
         {
-            echo "error";
-            return false;
+            $query->bind_param("is", $ID, $selectedApp);
         }
-        $query->bind_param("iss", $ID, $user, $selectedApp);
+        else
+        {
+            $query->bind_param("iss", $ID, $user, $selectedApp);
+        }
         $query->execute();
 
         if ($query->error == "")
