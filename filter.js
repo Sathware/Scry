@@ -4,7 +4,7 @@ function filterAppsByCategories()
     let selectedCategories = getSelectedCategories();
     for (let i = 0; i < applistings.length; i++)
     {
-        let appcategories = applistings[i].getAttribute("categories").split(" ");
+        let appcategories = applistings[i].getAttribute("categories").split(",");
         if (hasAllCategories(appcategories, selectedCategories))//infinite loop
         {
             applistings[i].style.display = "block";

@@ -61,7 +61,7 @@
 
                             while ($category = $result->fetch_assoc())
                             {
-                                echo "<li onclick='toggleCheck(this);' class='Listing'>";
+                                echo "<li onclick='toggleCheck(this);' class='categoryListing'>";
                                 echo $category["name"];
                                 echo "</li>";
                             }
@@ -70,7 +70,7 @@
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <label>Price: $</label>
-                    <input id="priceSelector" onchange="filterByPrice();" type="number" min="0" max="50"value="0">
+                    <input id="priceSelector" onchange="filterByPrice();" type="number" min="0" max="50"value="50">
                 </div>
             </div>
         </section>
@@ -147,7 +147,7 @@
                 {
                     while ($temp = $categoryresult->fetch_assoc())
                     {
-                        $categories.=$temp["categoryname"]." ";
+                        $categories.=$temp["categoryname"].",";
                     }
                 }
                 echo "<article class='applisting' title='".$app["name"]."' onclick='showData(this);' price='".$app["price"]."' 
@@ -174,6 +174,7 @@
             <div id="appinfo">
                 <img src="">
                 <div>
+                    <ul id="appcategories"></ul>
                     <h3>Description: </h3>
                     <p></p>
                 </div>

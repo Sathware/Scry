@@ -9,6 +9,12 @@ function showData(appListing)//In Progress, need to figure out price and categor
     AppData.classList.add("active");
     AppData.getElementsByTagName("p")[0].innerText = appListing.getAttribute("description");
     document.getElementById("appdev").innerText = appListing.getAttribute("dev");
+    document.getElementById("appcategories").innerHTML = "";
+    let categories = appListing.getAttribute("categories").split(",");
+    for (let i = 0; i < categories.length - 1; i++)
+    {
+        document.getElementById("appcategories").innerHTML += "<li>"+categories[i]+"</li>";
+    }
     document.body.style.overflow = "hidden";
     showPlatforms(appName);
     showComments(appName);
@@ -52,7 +58,8 @@ function showComments(appName)
 function makeComment()
 {
     let comment = document.getElementById("commentfield").innerText.trim();
-    let appName = document.getElementById("appName").innerText.trim();
+    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     if (comment == "")
     {
@@ -70,8 +77,9 @@ function makeComment()
                 }
                 else
                 {
-                    let temp = "<tr><td>"+userName+": </td><td class='commentvalue' onkeyup='presentExistingSave(this);' contenteditable> "+comment+
-                    "</td><td class='noshow'><i commentid='"+this.responseText+"' onclick='editComment(this.parent)' class='fa fa-save' style='position:absolute; right: 4px; top: 5px;'></i></td></tr>";
+                    let temp = "<tr><td>"+userName+": </td><td class='commentvalue' onblur='toggleDelete(this.parentElement);' onfocus='toggleDelete(this.parentElement);' onkeyup='presentExistingSave(this);' contenteditable> "+comment+
+                    "</td><td class='noshow'><i commentid='"+this.responseText+"' onclick='editComment(this.parentElement.parentElement)' class='fa fa-save' style='position:absolute; right: -14px; top: 5px;'></i>"
+                    +"<i commentid='"+this.responseText+"'class='fas fa-trash' onclick='deleteComment(this.parentElement.parentElement)' style='position:absolute; right: 4px; top: 5px;'></i>"+"</td></tr>";
                     document.getElementById("comments").innerHTML += temp;
                 }
             }
@@ -86,7 +94,8 @@ function makeComment()
 function editComment(commentElement)
 {
     let comment = commentElement.getElementsByTagName("td")[1].innerText.trim();
-    let appName = document.getElementById("appName").innerText.trim();
+    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     let commentid = commentElement.getElementsByTagName("i")[0].getAttribute("commentid");
     if (comment != null)
@@ -114,7 +123,8 @@ function editComment(commentElement)
 
 function deleteComment(commentElement)
 {
-    let appName = document.getElementById("appName").innerText.trim();
+    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     let commentid = commentElement.getElementsByTagName("i")[0].getAttribute("commentid");
     var xmlhttp = new XMLHttpRequest();
