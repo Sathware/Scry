@@ -8,6 +8,7 @@ function showData(appListing)//In Progress, need to figure out price and categor
     document.getElementById("overlay").classList.add("active");
     AppData.classList.add("active");
     AppData.getElementsByTagName("p")[0].innerText = appListing.getAttribute("description");
+    document.getElementById("appdev").innerText = appListing.getAttribute("dev");
     document.body.style.overflow = "hidden";
     showPlatforms(appName);
     showComments(appName);
@@ -122,7 +123,7 @@ function deleteComment(commentElement)
         {
             if (this.responseText == "error")
             {
-                alert("You cannot delete a comment that's not yours. Please sign in or logout and sign in.")
+                alert("You cannot delete a comment that's not yours. Please sign in or logout and sign in.");
             }
             else
             {

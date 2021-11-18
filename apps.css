@@ -188,12 +188,14 @@
     visibility: hidden;
     opacity: 0;
     transition-duration: .3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .platformversions a
 {
     color:#0099ff;
-    margin-bottom: 3px;
+    margin: 5px;
 }
 
 .platforminstance:hover .platformversions
@@ -335,10 +337,10 @@
     padding-right: 24px;
 }
 
-#comments td.noshow
+td.noshow
 {
-    border-radius: none;
-    box-shadow: none;
+    border-radius: none !important;
+    box-shadow: none !important;
     background-color: transparent;
     position: relative;
 }

@@ -130,14 +130,98 @@ body {
     transition-duration: .3s;
 }
 
+.selectorLabel:hover
+{
+    cursor:pointer;
+}
+
 .selectionContainer
 {
+    position: absolute;
+    background-color:#2f353c;
+    height: 10vh;
+    overflow-x: auto;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: .3s;
+}
 
+.selectionContainer.active
+{
+    position: absolute;
+    background-color:#2f353c;
+    height: 10vh;
+    overflow-y: auto;
+    width: 100%;
+    visibility: visible;
+    opacity: 1;
+    transition-duration: .3s;
+}
+
+.requestselector
+{
+    list-style-type: none;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-left: 10px;
+    padding: 0;
+    width: auto;
+    text-align:left;
+    height: inherit;
+}
+
+.requestselector:hover
+{
+    cursor:pointer;
+}
+
+.requestselector li.active::before
+{
+    content: '\2713';
 }
 
 #preview
 {
     width: 40vw;
+    position: relative;
+}
+
+#previewplatforms
+{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin: 5px;
+}
+
+.previewlinks
+{
+    position:absolute;
+    top: 100%;
+    color:#0099ff;
+    background-color:#2f353c;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    filter: blur(10px);
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: .3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.previewlinks a
+{
+    color:#0099ff;
+    margin: 5px;
+}
+
+.platforminstance:hover .previewlinks
+{
+    filter: blur(0px);
+    visibility: visible;
+    opacity: 1;
+    transition-duration: .3s;
 }
 
 #preview img
@@ -151,9 +235,58 @@ body {
     margin-right: 5%;
 }
 
+#previewcategories
+{
+    width: 10vw;
+    overflow-x:auto;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    line-height: 45px;
+} 
+
+#previewcategories li
+{
+    display: inline;
+    margin: 5px;
+    border-radius: 3px;
+    padding: 5px;
+    box-shadow:  inset 0 0 0 #131518, inset 0 0 0 #4b5560, 2px 2px 10px #131518, -2px -2px 10px #4b5560;
+}
+
 #preview p
 {
     margin-right: 5%;
+}
+
+#platformversion
+{
+    position:absolute;
+    left: 10%;
+    top: 50%;
+    height: 40%;
+    overflow-y: auto;
+}
+
+.editableversions td
+{
+    border-radius: 3px;
+    padding: 5px;
+    box-shadow:  inset 0 0 0 #131518, inset 0 0 0 #4b5560, 2px 2px 10px #131518, -2px -2px 10px #4b5560;
+    outline: none;
+    padding: 10px;
+    transition-duration: .3s;
+}
+
+.editableversions td:focus
+{
+    box-shadow: inset 2px 2px 10px #131518, inset -2px -2px 10px #4b5560, 0 0 0 #131518, 0 0 0 #4b5560;
+    transition-duration: .3s;
+}
+
+.fa-plus:hover
+{
+    cursor:pointer;
 }
 
 /* #user_verification

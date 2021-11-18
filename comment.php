@@ -44,7 +44,7 @@
     * This is a test php doc
     * Just work damn you
     */
-    function showComments(&$database, &$selectedApp, &$username, $hasPrivelege)
+    function showComments(&$database, &$selectedApp, &$username, $hasPrivelege):string
     {
         $query = $database->prepare("SELECT id, username, content FROM comment WHERE appname = ?;");
         // if ($query == false)
@@ -55,6 +55,7 @@
         $query->bind_param("s", $selectedApp);
         $query->execute();
         $query->bind_result($id, $user, $text);
+        $HTMLOut = "";
 
         while ($query->fetch())
         {
@@ -63,13 +64,15 @@
             {
                 $contenteditable = "contenteditable";
             }
-            echo "<tr><td>".$user.": </td>
+            $HTMLOut .= "<tr><td>".$user.": </td>
             <td class='commentvalue' onblur='toggleDelete(this.parentElement);' onfocus='toggleDelete(this.parentElement);' onkeyup='presentExistingSave(this);'".$contenteditable."> ".$text."</td>
             <td class='noshow'><i commentid='".$id."' onclick='editComment(this.parentElement.parentElement)' class='fa fa-save' style='position:absolute; right: -14px; top: 5px;'></i>
             <i commentid='".$id."'class='fas fa-trash' onclick='deleteComment(this.parentElement.parentElement)' style='position:absolute; right: 4px; top: 5px;'></i></td></tr>";
         }
 
+        echo $HTMLOut;
         $query->close();
+        return $HTMLOut;
     }
 
     function makeComment(&$database, &$user, &$selectedApp, &$comment)
