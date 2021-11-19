@@ -41,7 +41,9 @@
                 $apprequests = $conn->query("SELECT * FROM app_request;");
                 while ($request = $apprequests->fetch_assoc())
                 {
-                    echo "<li onclick='displayRequest(this);' class='request' username='".$request["username"]."' json='".$request["json"]."'>Request By: ".$request["username"]." at - ".$request["date"]."</li>";
+                    $safeJson = str_replace("%3F", "?", $request["json"]);
+                    $safeJson = str_replace("%26", "&", $safeJson);
+                    echo "<li onclick='displayRequest(this);' class='request' username='".$request["username"]."' json='".$safeJson."'>Request By: ".$request["username"]." at - ".$request["date"]."</li>";
                 }
             ?>
         </ul>

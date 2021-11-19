@@ -1,7 +1,7 @@
 function validateCredentials()
 {
     let userInfo = document.forms["user_verification"];
-    let invalidChars = /^[0-9a-zA-Z]+$/;
+    let invalidChars = /^[0-9a-zA-Z]+?$/;
     if (invalidChars.test(userInfo["uname"].value) && invalidChars.test(userInfo["pass"].value))
     {
         return true;

@@ -58,7 +58,8 @@ function showComments(appName)
 function makeComment()
 {
     let comment = document.getElementById("commentfield").innerText.trim();
-    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    let appName = document.getElementById("appName").innerText.trim();
+    appName = appName.slice(appName.indexOf(" ")+ 1);
     appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     if (comment == "")
@@ -94,7 +95,8 @@ function makeComment()
 function editComment(commentElement)
 {
     let comment = commentElement.getElementsByTagName("td")[1].innerText.trim();
-    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    let appName = document.getElementById("appName").innerText.trim();
+    appName = appName.slice(appName.indexOf(" ")+ 1);
     appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     let commentid = commentElement.getElementsByTagName("i")[0].getAttribute("commentid");
@@ -123,7 +125,8 @@ function editComment(commentElement)
 
 function deleteComment(commentElement)
 {
-    let appName = document.getElementById("appName").innerText.trim().split(" ")[1];
+    let appName = document.getElementById("appName").innerText.trim();
+    appName = appName.slice(appName.indexOf(" ")+ 1);
     appName = appName.slice(0, appName.length - 1);
     let userName = document.getElementById("userDisplay").innerText.trim();
     let commentid = commentElement.getElementsByTagName("i")[0].getAttribute("commentid");

@@ -131,7 +131,7 @@ function newRequestPlatform()
     let userinput = document.getElementById("textRequestPlatform").value;
     document.getElementById("requestplatforms").innerHTML += "<li onclick='toggleRequestPlatform(this);' class='Listing active'>" + userinput + "</li>";
     document.getElementById("newPlatform").style.display = "none";
-    addVersionsTable(platListing.innerText);
+    addVersionsTable(userinput);
     previewApp.addPlatform(userinput);
     displayPreview();
 }
@@ -296,9 +296,17 @@ function reviver(key, value) {
     return value;
 }
 
+//https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+
 function sendrequest()
 {
     let userName = document.getElementById("userDisplay").innerText.trim();
+    let json = JSON.stringify(previewApp, replacer);
+    json = json.replaceAll("?", "%3F");
+    json = json.replaceAll("&", "%26");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
@@ -313,7 +321,7 @@ function sendrequest()
             }
         }
     };
-    let params = "username="+userName+"&appjson="+JSON.stringify(previewApp, replacer);
+    let params = "username="+userName+"&appjson="+json;
     xmlhttp.open("POST", "request.php", true);//!!!!!!!!!!!!CHANGE URL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xmlhttp.send(params);
