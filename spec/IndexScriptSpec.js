@@ -26,3 +26,19 @@ describe("Filtering by name", function()
     });
     
 });
+
+describe("Show comments", function()
+{   
+    var [xmlhttp, params] = showComments("DoorDash"); // Define it here
+
+    it("should use the xmlHttpRequest object for asynchronous queries", function()
+    {
+        expect(xmlhttp).toBeTruthy();
+    });
+
+    it("should output the associated comments for a particular app", function()
+    {
+        expect(params.includes("DoorDash")).toEqual(new Boolean(true));
+    });
+    
+});

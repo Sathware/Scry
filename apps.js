@@ -37,7 +37,10 @@ function showPlatforms(appName)
 //!!!!!!! CHANGE URL
 function showComments(appName)
 {
-    let userName = document.getElementById("userDisplay").innerText.trim();
+    let userName = "";
+    if (document.getElementById("userDisplay") != null) {
+        userName = document.getElementById("userDisplay").innerText.trim();
+    }
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -48,6 +51,7 @@ function showComments(appName)
     xmlhttp.open("POST", "comment.php", true);
     xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xmlhttp.send(params);
+    return [xmlhttp, params];
 }
 
 // function showSave(commentfield)
